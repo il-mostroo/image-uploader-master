@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+:root {
+    --poppins:  'Poppins', sans-serif;
+    --small-font-size: 0.625rem;
+    --medium-font-size: 0.75rem;
+    --large-font-size: 1.125rem;
+    --medium-weight: 500;
+    --gray2: hsla(0, 0%, 31%, 1);
+    --gray3: hsla(0, 0%, 51%, 1);
+    --gray4: hsla(0, 0%, 74%, 1);
+    --white: hsla(0, 0%, 100%, 1);
+    --blue: hsla(215, 81%, 77%, 1);
+    --blue-light: hsla(216, 38%, 97%, 1);
+    --blue-dark: hsla(214, 84%, 56%, 1);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: var(--poppins);
+    font-weight: var(--medium-weight);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    justify-content: space-between;
+    padding: 2.25rem;
+    width: 25.125rem;
+    height: 29.3125rem;
+    border-radius: 0.75rem;
+    box-shadow: 0rem 0.25rem 0.75rem hsla(0, 0%, 0%, 0.1);
+    background-color: var(--white);
+}
+
+form, .drop-area, .file-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 21.125rem;
+    height: 24.8125rem;
+    justify-content: space-between;
+}
+
+.drop-area {
+    width: 100%;
+    height: 13.6875rem;
+    justify-content: space-evenly;
+    border-radius: 0.75rem;
+    border: 0.0625rem dashed var(--blue);
+    background-color: var(--blue-light);
+}
+
+form > p:nth-child(1) {
+    font-size: var(--large-font-size);
+    color: var(--gray2);
+}
+
+form > p:nth-child(2) {
+    font-size: var(--small-font-size);
+    color: var(--gray3);
+}
+
+form > p:nth-child(2) {
+    font-size: var(--small-font-size);
+    color: var(--gray3);
+    letter-spacing: -3.5%;
+}
+
+.drop-area > p, form > p:last-of-type {
+    font-size: var(--medium-font-size);
+    color: var(--gray4);
+}
+
+label {
+    font-size: var(--small-font-size);
+    color: var(--white);
+    letter-spacing: -3.5%;
+    padding: 0.5rem 1rem;
+    background-color: var(--blue-dark);
+    border-radius: 0.75rem;
+    box-shadow: 0rem 0.25rem 0.75rem hsla(0, 0%, 0%, 0.1);
+}
+.file-input {
+    opacity: 0;
+}
+
