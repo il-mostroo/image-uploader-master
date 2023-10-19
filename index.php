@@ -21,7 +21,7 @@
             <p>Or</p>
             <div class="file-input-container">
                 <label for="file-input" class="file-label">Choose a file</label>
-                <input type="file" class="file-input" name="file"accept=".jpg, .jpeg, .png" multiple>
+                <input type="file" id="file-input" name="file" accept=".jpg, .jpeg, .png" multiple>
             </div>
         </form>
     </div>

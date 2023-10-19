@@ -90,8 +90,11 @@ label {
     background-color: var(--blue-dark);
     border-radius: 0.75rem;
     box-shadow: 0rem 0.25rem 0.75rem hsla(0, 0%, 0%, 0.1);
+    cursor: pointer;
 }
-.file-input {
+#file-input {
     opacity: 0;
+    position: absolute;
+    left: -9999px;
 }
 
