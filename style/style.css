@@ -104,3 +104,7 @@ label {
     background-color: var(--blue-drag-effect);
 }
 
+.drop-area > * {
+    pointer-events: none;
+}
+

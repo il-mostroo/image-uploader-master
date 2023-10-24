@@ -1,38 +1,53 @@
 class HandleDropedImage {
 
-    constructor(dropArea) {
-        this.dragAndDropEffect(dropArea);
-        // this.sendImgToServer(dropArea, url);
+    constructor(dropArea, url) {
+        this.dragAndLeaveEffect(dropArea);
+        this.sendImgToServer(dropArea, url);
     }
 
     dragAndLeaveEffect(dropArea) {
-        this.dragEnterEffect(dropArea);
+        this.dragOverEffect(dropArea);
         this.dragLeaveEffect(dropArea);
     }
 
-    dragCounter = 0;
-    dragEnterEffect(dropArea) {
-        dropArea.addEventListener("dragenter", (event) => {
+    dragOverEffect(dropArea) {
+        dropArea.addEventListener("dragover", (event) => {
             event.preventDefault();
-                if (this.dragCounter === 0) {
-                    console.log("mouse entered to da");
-                    dropArea.classList.add("isDraggingOver"); 
-                } 
-                this.dragCounter++;
+            console.log("mouse entered to da");
+            dropArea.classList.add("isDraggingOver"); 
         });
     }
     dragLeaveEffect(dropArea) {
         dropArea.addEventListener("dragleave", (event) => {
+            if (!dropArea.contains(event.relatedTarget)) {
+                event.preventDefault();
+                console.log("mouse leaved the da");
+                dropArea.classList.remove("isDraggingOver");
+            }
+        });
+    }
+
+    sendImgToServer(dropArea, url) {
+        dropArea.addEventListener("drop", (event) => {
             event.preventDefault();
-            this.dragCounter--;
-                if (this.dragCounter === 0) {
-                    console.log("mouse leaved da");
-                    dropArea.classList.remove("isDraggingOver");
-                }
+            const imageFile = event.dataTransfer.files[0];
+
+            const formData = new FormData();    
+            formData.append('image', imageFile);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+              })
+                .catch((error) => {
+                  alert('Error:', error);
+                  window.location.href = '../index.html';
+                });
         });
     }
 }
 
 const dropArea = document.querySelector(".drop-area");
+const url = "../includes/controller.php";
 
-dropedImgHandler = new HandleDropedImage(dropArea);
+dropedImgHandler = new HandleDropedImage(dropArea, url);
