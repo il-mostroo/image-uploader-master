@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form method="post" enctype="multipart/form-data">
+        <form action="includes/controller.php" method="post" class="form" enctype="multipart/form-data">
             <p>Upload your image</p>
             <p>File should be Jpeg, Png,...</p>
             <div class="drop-area">
@@ -18,10 +18,10 @@
             <p>Or</p>
             <div class="file-input-container">
                 <label for="file-input" class="file-label">Choose a file</label>
-                <input type="file" id="file-input" name="images[]" accept=".jpg, .jpeg, .png" multiple>
+                <input type="file" id="file-input" name="fileInput" accept=".jpg, .jpeg, .png" multiple>
             </div>
         </form>
     </div>
-    <script src="scripts/HandleDropedImg.js"></script>
+    <script src="scripts/HandleUploadedImg.js"></script>
 </body>
 </html>

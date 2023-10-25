@@ -1,7 +1,8 @@
-class HandleDropedImage {
+class HandleUploadedImage {
 
-    constructor(dropArea, url) {
+    constructor(dropArea, url, fileInput, form) {
         this.dragAndLeaveEffect(dropArea);
+        this.submitFormOnChange(fileInput, form);
         this.sendImgToServer(dropArea, url);
     }
 
@@ -27,6 +28,13 @@ class HandleDropedImage {
         });
     }
 
+    submitFormOnChange(fileInput, form) {
+        fileInput.addEventListener("change", () => {
+            console.log("change event was triggered");
+            form.submit();
+        });
+    }
+
     sendImgToServer(dropArea, url) {
         dropArea.addEventListener("drop", (event) => {
             event.preventDefault();
@@ -38,7 +46,7 @@ class HandleDropedImage {
             fetch(url, {
                 method: 'POST',
                 body: formData,
-              })
+              })           
                 .catch((error) => {
                   alert('Error:', error);
                   window.location.href = '../index.html';
@@ -49,5 +57,7 @@ class HandleDropedImage {
 
 const dropArea = document.querySelector(".drop-area");
 const url = "../includes/controller.php";
+const fileInput = document.getElementById("file-input")
+const form = document.querySelector(".form");
 
-dropedImgHandler = new HandleDropedImage(dropArea, url);
+dropedImgHandler = new HandleUploadedImage(dropArea, url, fileInput, form);
