@@ -14,7 +14,6 @@ class HandleUploadedImage {
     dragOverEffect(dropArea) {
         dropArea.addEventListener("dragover", (event) => {
             event.preventDefault();
-            console.log("mouse entered to da");
             dropArea.classList.add("isDraggingOver"); 
         });
     }
@@ -22,7 +21,6 @@ class HandleUploadedImage {
         dropArea.addEventListener("dragleave", (event) => {
             if (!dropArea.contains(event.relatedTarget)) {
                 event.preventDefault();
-                console.log("mouse leaved the da");
                 dropArea.classList.remove("isDraggingOver");
             }
         });
@@ -46,10 +44,14 @@ class HandleUploadedImage {
             fetch(url, {
                 method: 'POST',
                 body: formData,
-              })           
+              })    
+                .then((response) => response.text())
+                .then((data) => {
+                  console.log(data);
+                })      
                 .catch((error) => {
                   alert('Error:', error);
-                  window.location.href = '../index.html';
+                //   window.location.href = '../index.html';
                 });
         });
     }
