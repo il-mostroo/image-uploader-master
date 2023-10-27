@@ -11,8 +11,8 @@ class HandleUserImg {
     handleSelectedImg(fileInput) {
         fileInput.addEventListener("change", (event) => {
             const File = event.target.files[0];
-            const errors = this.isFileValid(File);
-            if (errors.length = 0) {
+            let errors = this.isFileValid(File);
+            if (errors.length === 0) {
                 //send the img to the server and render uploading progress bar
             } else if (errors.length > 0) {
                 //loop through the array and render errors
@@ -40,7 +40,7 @@ class HandleUserImg {
     isFileValid(File) {
         const imgValidationErrors = [];
         const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-        const MAX_FILE_SIZE = 10000;
+        const MAX_FILE_SIZE = 10;
             if (!allowedExtensions.test(File.name)) {
                 imgValidationErrors.push("Invalid file format. Please select a valid image.");
             } else if (Math.round(File.size/1024) > MAX_FILE_SIZE) {
