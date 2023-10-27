@@ -8,9 +8,9 @@ export class RenderValidationErrors {
             toastDiv.appendChild(errorParagraph);
         });
         document.body.appendChild(toastDiv);
-        toastDiv.className = "show";
+        // toastDiv.style.visibility = "visible";
         setTimeout(() => {
-            toastDiv.className = toastDiv.className.replace("show", "");
+            toastDiv.remove();
           }, 3000);
           
     }

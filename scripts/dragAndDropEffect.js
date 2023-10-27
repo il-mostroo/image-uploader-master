@@ -23,4 +23,4 @@ class DragAndDropEffect {
 
 const dropArea = document.querySelector(".drop-area");
 
-dropedImgHandler = new HandleUploadedImage(dropArea);
+dropedImgHandler = new DragAndDropEffect(dropArea);

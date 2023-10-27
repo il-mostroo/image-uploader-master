@@ -14,6 +14,7 @@
     --blue-light: hsla(216, 38%, 97%, 1);
     --blue-drag-effect: hsla(216, 38%, 97%, .3);
     --blue-dark: hsla(214, 84%, 56%, 1);
+    --toast-color: hsla(0, 0%, 20%, 1);
 }
 
 * {
@@ -39,6 +40,7 @@ body {
     border-radius: 0.75rem;
     box-shadow: 0rem 0.25rem 0.75rem hsla(0, 0%, 0%, 0.1);
     background-color: var(--white);
+    position: relative;
 }
 
 form, .drop-area, .file-input-container {
@@ -108,45 +110,14 @@ label {
     pointer-events: none;
 }
 
-/* style for toast div: */
 #toast {
-    visibility: hidden; 
-    min-width: 250px;
-    margin-left: -125px; 
-    background-color: #333; 
-    color: #fff; 
+    min-width: 15.625rem;
+    background-color: var(--toast-color); 
+    color: var(--white); 
     text-align: center;
-    border-radius: 2px; 
-    padding: 16px; 
-    position: fixed; 
-    z-index: 1; 
-    left: 50%; 
-    bottom: 30px;
-  }
-  
-  #snackbar.show {
-    visibility: visible; 
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  }
-  
-  @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-  }
-  
-  @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-  }
-  
-  @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-  }
-  
-  @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    border-radius: 0.75rem; 
+    padding: 1rem; 
+    position: absolute;
+    bottom: 3.125rem;
   }
 
