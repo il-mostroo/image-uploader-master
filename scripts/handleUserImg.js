@@ -24,8 +24,8 @@ class HandleUserImg {
         });
     }
     
-    handleDroppedImg(formContainer, dropArea, uploadContainer, url) {
-        dropArea.addEventListener("drop", (event) => {
+    async handleDroppedImg(formContainer, dropArea, uploadContainer, url) {
+        dropArea.addEventListener("drop", async (event) => {
             event.preventDefault();
             const file = event.dataTransfer.files[0];
 
@@ -34,20 +34,18 @@ class HandleUserImg {
             if (validationErrors.length > 0) {
                 this.renderErrorsInstance.renderErrors(validationErrors);
                 validationErrors = [];
-            } else if (validationErrors.length === 0) {
+            } // Assuming this method is inside an async function
+            else if (validationErrors.length === 0) {
                 formContainer.style.display = "none";
                 uploadContainer.style.display = "flex";
-                fetchErrors = this.uploadImg(file);
-                console.log(fetchErrors);
-                fetchErrors.push('This is an example error.');
-                console.log(fetchErrors.length);
-                if (fetchErrors) {
+                const fetchErrors = await this.uploadImg(file); // Wait for the result
+                if (fetchErrors.length > 0) {
                     this.renderErrorsInstance.renderErrors(fetchErrors);
                     uploadContainer.style.display = "none";
                     formContainer.style.display = "flex";
-                    console.log(fetchErrors.length);
                 }
-            } 
+            }
+            
         });
     }
 
@@ -67,31 +65,22 @@ class HandleUserImg {
     uploadImg(imageFile) {
         const formData = new FormData();
         formData.append('image', imageFile);
-
-        let fetchErrors = [];
-        fetch("../includes/model.php", {
+    
+        return fetch("../includes/model.php", {
             method: 'POST',
             body: formData
         })
         .then(response => {
-            if (!response.ok) {
+            if (response.status === 400) {
                 return response.text(); 
             }
-            return response.text(); 
         })
         .then(message => {
-            if (message) {
                 const messageObj = JSON.parse(message);
-                fetchErrors.push(messageObj.error);
-            } else {
-                fetchErrors.push('Error uploading the image! Please try again.');
-            }
+                return [messageObj.error]; 
         })
-        .catch(error => {
-            fetchErrors.push('Error uploading the image! Please try again.');
-        });
-        return fetchErrors;
     }
+    
 
 }
 
