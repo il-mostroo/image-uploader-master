@@ -1,4 +1,4 @@
-export class RenderValidationErrors {
+export class RenderErrors {
     renderErrors(errorsToRender) {
         const toastDiv = document.createElement('div');
         toastDiv.id = 'toast';
@@ -8,7 +8,6 @@ export class RenderValidationErrors {
             toastDiv.appendChild(errorParagraph);
         });
         document.body.appendChild(toastDiv);
-        // toastDiv.style.visibility = "visible";
         setTimeout(() => {
             toastDiv.remove();
           }, 3000);
