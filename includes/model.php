@@ -13,19 +13,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        if ($image['size'] > 5 * 1024) { 
+        if ($image['size'] > 5 * 1024 * 1024) { 
             http_response_code(400);
             $response = ['error' => 'File size is too large. Please select a smaller image(<=5MB).'];
             echo json_encode($response);
             exit;
         }
 
-        http_response_code(200);
-        $response = ['error' => 'Image received and is valid.'];
-        echo json_encode($response);
+        //send image to permanent folder, generate URL and send it back to javascript:
+        $uploadDirectory = '/srv/http/image-uploader-master/uploads/';
+
+        if (move_uploaded_file($image['tmp_name'], $uploadDirectory . $image['name'])) {
+            $imageURL = "/uploads/" . $image['name'];
+            $responseData = ['imageURL' => $imageURL];
+            echo json_encode($responseData);
+            exit;
+        } else {
+            http_response_code(500);
+            $response = ['error' => 'Error uploading the image! Please try again.'];
+            echo json_encode($response);
+            exit;
+        }
+
     } else {
         http_response_code(400);
         $response = ['error' => 'Error uploading the image! Please try again.'];
         echo json_encode($response);
     }
+
 }

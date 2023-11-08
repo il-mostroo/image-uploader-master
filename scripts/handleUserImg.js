@@ -30,19 +30,28 @@ class HandleUserImg {
             const file = event.dataTransfer.files[0];
 
             let validationErrors = this.isFileValid(file);
-            let fetchErrors = [];
             if (validationErrors.length > 0) {
                 this.renderErrorsInstance.renderErrors(validationErrors);
                 validationErrors = [];
-            } // Assuming this method is inside an async function
+            } 
             else if (validationErrors.length === 0) {
                 formContainer.style.display = "none";
                 uploadContainer.style.display = "flex";
-                const fetchErrors = await this.uploadImg(file); // Wait for the result
-                if (fetchErrors.length > 0) {
+                const fetchResult = await this.uploadImg(file);
+                if (fetchResult.error) {
+                    const fetchErrors = [];
+                    fetchErrors.push(fetchResult.error);
                     this.renderErrorsInstance.renderErrors(fetchErrors);
                     uploadContainer.style.display = "none";
                     formContainer.style.display = "flex";
+                } else if (fetchResult.imageURL) {
+                    const imageURL =  fetchResult.imageURL;
+                    uploadContainer.style.display = "none";
+                    const imageElement = document.createElement('img');
+                    imageElement.src = imageURL;
+                    imageElement.width = 300;
+                    imageElement.height = 300;
+                    document.body.appendChild(imageElement);
                 }
             }
             
@@ -70,18 +79,11 @@ class HandleUserImg {
             method: 'POST',
             body: formData
         })
-        .then(response => {
-            if (response.status === 400) {
-                return response.text(); 
-            }
-        })
-        .then(message => {
-                const messageObj = JSON.parse(message);
-                return [messageObj.error]; 
-        })
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        });
     }
-    
-
 }
 
 const dropArea = document.querySelector(".drop-area");
