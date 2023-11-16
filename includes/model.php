@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image'])) {
         $image = $_FILES['image'];
 
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
         if (!in_array($image['type'], $allowedTypes)) {
             http_response_code(400);
             $response = ['error' => 'Invalid file format. Please select a valid image.'];
@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         //send image to permanent folder, generate URL and send it back to javascript:
+        // $uploadDirectory = mkdir('/srv/http/image-uploader-master/uploads/');
         $uploadDirectory = '/srv/http/image-uploader-master/uploads/';
 
         if (move_uploaded_file($image['tmp_name'], $uploadDirectory . $image['name'])) {
