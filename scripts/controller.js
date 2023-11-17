@@ -88,7 +88,7 @@ class Controller {
         const formData = new FormData();
         formData.append('image', imageFile);
     
-        return fetch("../includes/model.php", {
+        return fetch("/image-uploader-master/includes/model.php", {
             method: 'POST',
             body: formData
         })
